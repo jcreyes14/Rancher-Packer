@@ -163,11 +163,15 @@
   <services-manager>
     <default_target>multi-user</default_target>
     <services>
-      <disable config:type="list"/>
+      <!--RKE2 Disable Apparmor-->
+      <disable config:type="list">
+        <service>apparmor</service>
+      </disable>
       <enable config:type="list">
         <service>sshd</service>
         <service>cloud-init</service>
-        <service>docker</service>
+        <service>chronyd</service>
+       <!-- <service>docker</service> -->
       </enable>
     </services>
   </services-manager>
@@ -192,7 +196,7 @@
       <package>iputils</package>
       <package>open-iscsi</package>
       <package>cloud-init</package>
-      <package>docker</package>
+      <!-- <package>docker</package> -->
     </packages>
     <patterns config:type="list">
       <pattern>base</pattern>
@@ -231,7 +235,7 @@
     <user>
       <fullname>Built by Packer</fullname>
       <gid>100</gid>
-      <home>/home/packerbuilt</home>
+      <home>/home/apexuser</home>
       <password_settings>
         <expire/>
         <flag/>
@@ -242,8 +246,8 @@
       </password_settings>
       <shell>/bin/bash</shell>
       <uid>1000</uid>
-      <user_password>PackerBuilt!</user_password>
-      <username>packerbuilt</username>
+      <user_password>SUSE4us1234!</user_password>
+      <username>apexuser</username>
     </user>
     <user>
       <encrypted config:type="boolean">true</encrypted>
@@ -300,8 +304,8 @@
         <source>
 <![CDATA[
 #!/bin/sh
-echo "Defaults:packerbuilt !targetpw
-packerbuilt ALL=(ALL,ALL) NOPASSWD: ALL" > /etc/sudoers.d/packerbuilt
+echo "Defaults:apexuser !targetpw
+apexuser ALL=(ALL,ALL) NOPASSWD: ALL" > /etc/sudoers.d/apexuser
 ]]>
           </source>
       </script>
